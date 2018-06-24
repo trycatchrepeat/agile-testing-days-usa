@@ -1,0 +1,840 @@
+{
+	"info": {
+		"_postman_id": "b34b7a28-42d6-44e2-9571-9ae4e6038b62",
+		"name": "ATD 2018 USA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Getting our feet wet",
+			"description": "",
+			"item": [
+				{
+					"name": "Get weather from the Dark Sky API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0426bcd9-ce79-4df2-9657-bebf60804b8a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Request with valid lat and long returns a 200 status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/219a4cc6ef64023fdcee03a7335372b9/{{latitude}},{{longitude}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"219a4cc6ef64023fdcee03a7335372b9",
+								"{{latitude}},{{longitude}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2 - Fundamental - Exploratory Tests",
+			"description": "**5 minutes**\r\n\r\nExploratory testing approach\r\n- Identify the variable parts (we'll write these on a flip chart).\r\n- Apply Heuristics to the variables (not all of these may be applicable to our example)\r\n-- Zero, One, Many\r\n-- Some, None, All\r\n-- Beginning, Middle, End\r\n-- Too Many, Too Few\r\n-- Relative Position, i.e. content",
+			"item": [
+				{
+					"name": "Exploratory Testing the Weather API - Equator at Prime Meridian",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/0,0",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"0,0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exploratory Testing the Weather API - 100,100",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/100,100",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"100,100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exploratory Testing the Weather API - South Pole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/-90,0",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"-90,0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exploratory Testing the Weather API - North Pole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/90,0",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"90,0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2d66424f-1d29-46b6-ade6-76227492b395",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b5233ac5-661b-4478-bb2b-d4512cf6f8be",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "3 - Fundamental - Functional Tests (aka Component tests)",
+			"description": "**10 minutes**\r\n\r\nIn this activity, we'll add an assertion to our GET weather request.\r\n\r\nOpen a new tab.\r\nType or paste your request from 1-GET weather activity.\r\nClick the 'Tests' tab (check out Dan's screen).\r\nFirst we'll add a test for the status code (Dan will talk us through this).\r\nThen we'll check our response to make sure we're getting the weather forecast for our desired location.\r\n",
+			"item": [
+				{
+					"name": "Response codes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "45ee8afb-fa47-4236-bb4d-d15bc9f16f75",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=minutely,hourly,daily,flags",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}}"
+							],
+							"query": [
+								{
+									"key": "exclude",
+									"value": "minutely,hourly,daily,flags"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Weather on New Years Day 2018",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0a218173-9e24-4126-b91a-4ff6d90434d4",
+								"type": "text/javascript",
+								"exec": [
+									"postman.setGlobalVariable(\"NewYearsDay\", \"2018-01-01T00:00:01\");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1ce300b1-8529-48b9-a1dc-4499555c2d94",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Forecast matches recorded weather\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.currently.summary).to.eql(\"Clear\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}},{{NewYearsDay}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}},{{NewYearsDay}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a934cf78-10c3-4efa-845b-677969f53e76",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b950846-9920-4059-a605-4796f79dcc30",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "4 - Fundamental - Contract Tests",
+			"description": "**10 minutes**\r\n\r\nContract tests verify that what you send back in your response matches what you told users would come back in your response.\r\n\r\nOne way of doing this in Postman is throught a schema validation.\r\n\r\nA schema defines the data structure of the response, and the rules around the structure.  Rules meaning like what is required, what values can be null, what the max or min length of a string can be, and so on.\r\n\r\nWe have rules around specifying this data structure, or schema, in json, so that we can all understand what is expected.\r\n\r\nPostman has a built-in schema validator that we can use - we just need to specify the schema that we want our response validated against.\r\n\r\njsonschema.net is a sweet tool for doing this.",
+			"item": [
+				{
+					"name": "Response json schema should match expected schema",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "51cc56a6-9c7c-40a1-9ef0-3b60a003bb4e",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"$id\": \"http://example.com/example.json\",",
+									"  \"type\": \"object\",",
+									"  \"definitions\": {},",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"  \"additionalProperties\": false,",
+									"  \"properties\": {",
+									"    \"latitude\": {",
+									"      \"$id\": \"/properties/latitude\",",
+									"      \"type\": \"number\",",
+									"      \"title\": \"The Latitude Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        42.36029815673828",
+									"      ]",
+									"    },",
+									"    \"longitude\": {",
+									"      \"$id\": \"/properties/longitude\",",
+									"      \"type\": \"number\",",
+									"      \"title\": \"The Longitude Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        -71.05829620361328",
+									"      ]",
+									"    },",
+									"    \"timezone\": {",
+									"      \"$id\": \"/properties/timezone\",",
+									"      \"type\": \"string\",",
+									"      \"title\": \"The Timezone Schema \",",
+									"      \"default\": \"\",",
+									"      \"examples\": [",
+									"        \"America/New_York\"",
+									"      ]",
+									"    },",
+									"    \"offset\": {",
+									"      \"$id\": \"/properties/offset\",",
+									"      \"type\": \"integer\",",
+									"      \"title\": \"The Offset Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        -4",
+									"      ]",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"latitude\",",
+									"    \"longitude\",",
+									"    \"timezone\",",
+									"    \"offset\"",
+									"  ]",
+									"};",
+									"pm.test(\"Response matches schema\", function () {",
+									"    pm.expect(tv4.validate(data, schema),tv4.error).to.be.true;",
+									"    console.log(\"Schema Validation failed: \", tv4.error);",
+									"",
+									"    });"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=currently,minutely,hourly,daily,flags,alerts",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}}"
+							],
+							"query": [
+								{
+									"key": "exclude",
+									"value": "currently,minutely,hourly,daily,flags,alerts"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response json schema should match expected schema (change response)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1b16f5ab-732c-4805-928a-92a6eb0c362f",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"var schema = {",
+									"  \"$id\": \"http://example.com/example.json\",",
+									"  \"type\": \"object\",",
+									"  \"definitions\": {},",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+									"  \"additionalProperties\": false,",
+									"  \"properties\": {",
+									"    \"latitude\": {",
+									"      \"$id\": \"/properties/latitude\",",
+									"      \"type\": \"number\",",
+									"      \"title\": \"The Latitude Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        42.36029815673828",
+									"      ]",
+									"    },",
+									"    \"longitude\": {",
+									"      \"$id\": \"/properties/longitude\",",
+									"      \"type\": \"number\",",
+									"      \"title\": \"The Longitude Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        -71.05829620361328",
+									"      ]",
+									"    },",
+									"    \"timezone\": {",
+									"      \"$id\": \"/properties/timezone\",",
+									"      \"type\": \"string\",",
+									"      \"title\": \"The Timezone Schema \",",
+									"      \"default\": \"\",",
+									"      \"examples\": [",
+									"        \"America/New_York\"",
+									"      ]",
+									"    },",
+									"    \"offset\": {",
+									"      \"$id\": \"/properties/offset\",",
+									"      \"type\": \"integer\",",
+									"      \"title\": \"The Offset Schema \",",
+									"      \"default\": 0,",
+									"      \"examples\": [",
+									"        -4",
+									"      ]",
+									"    }",
+									"  },",
+									"  \"required\": [",
+									"    \"latitude\",",
+									"    \"longitude\",",
+									"    \"timezone\",",
+									"    \"offset\"",
+									"  ]",
+									"};",
+									"pm.test(\"Response matches schema\", function () {",
+									"    pm.expect(tv4.validate(data, schema),tv4.error).to.be.true;",
+									"    console.log(\"Schema Validation failed: \", tv4.error);",
+									"",
+									"    });"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=currently,minutely,hourly,daily,alerts",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}}"
+							],
+							"query": [
+								{
+									"key": "exclude",
+									"value": "currently,minutely,hourly,daily,alerts"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed0bb033-08b0-4331-9253-10572e2a2590",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3e701e9-c74b-4964-a42b-1d95cb54061b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "5 - Fundamental - Performance, Load & Security Tests",
+			"description": "**10 minutes**\r\n\r\nWe can easily extract a value from our json response.\r\nLet's add more than an assertion to the post-response javascript code.",
+			"item": [
+				{
+					"name": "Response time should be less than 200 ms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b51f9c8-5965-40a7-a352-ad3ed370ea7c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "757cfab0-f421-40ff-9ce9-aa195d4088d9",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccdfed8d-a3ee-4a39-ad3c-f9f4d398d122",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "6 - Fundamental - \"EndToEnd\" Tests (aka Integration Tests)",
+			"description": "",
+			"item": [
+				{
+					"name": "Get lat and long from darksky Geo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "828ec1a8-dac9-4ac7-b1a6-5b61e7780d6e",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"latitude\", jsonData.latitude);",
+									"pm.environment.set(\"longitude\", jsonData.longitude);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://darksky.net/geo?q={{location}}",
+							"protocol": "https",
+							"host": [
+								"darksky",
+								"net"
+							],
+							"path": [
+								"geo"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{location}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET forecast from darksky",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2594006d-9bac-4815-872b-796be24483f4",
+								"type": "text/javascript",
+								"exec": [
+									"//extract time",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"forecast_time\", jsonData.currently.time);",
+									"pm.environment.set(\"darksky_forecast\", jsonData.currently.summary);",
+									"//check response - should we do this first?",
+									"pm.test(\"Request with valid lat and long returns a 200 status code\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=minutely,hourly,daily,flags,alerts",
+							"protocol": "https",
+							"host": [
+								"api",
+								"darksky",
+								"net"
+							],
+							"path": [
+								"forecast",
+								"{{darkskyKey}}",
+								"{{latitude}},{{longitude}}"
+							],
+							"query": [
+								{
+									"key": "exclude",
+									"value": "minutely,hourly,daily,flags,alerts"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET forecast from aeris API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4c0e62f-32ee-47ff-9195-5af91e308eed",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.test(\"Darksky forecast for current time matches aeris forecast for same time\", function () {",
+									"    pm.expect(jsonData.response[0].periods[0].weather).to.eql(pm.environment.get(\"darksky_forecast\"));",
+									"});",
+									"pm.test(\"Darksky latitude for location matches aeris latitude\", function () {",
+									"    pm.expect(jsonData.response[0].loc.lat.toPrecision(2)).to.eql(pm.environment.get(\"latitude\").toPrecision(2));",
+									"});",
+									"pm.test(\"Darksky longitude for location matches aeris longitude\", function () {",
+									"    pm.expect(jsonData.response[0].loc.long.toPrecision(2)).to.eql(pm.environment.get(\"longitude\").toPrecision(2));",
+									"});",
+									"console.log(\"Darksky lat, long, forecast = \" + pm.environment.get(\"latitude\") + \",\" + pm.environment.get(\"longitude\")+ \",\" + pm.environment.get(\"darksky_forecast\"));",
+									"console.log(\"Aeris lat, long, forecast = \" + jsonData.response[0].loc.lat + \",\" + jsonData.response[0].loc.long + \",\" + jsonData.response[0].periods[0].weather);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.aerisapi.com/forecasts/{{location}}?from={{forecast_time}}&filter=1hr&client_id={{aerisID}}&client_secret={{aerisSecret}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"aerisapi",
+								"com"
+							],
+							"path": [
+								"forecasts",
+								"{{location}}"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "{{forecast_time}}"
+								},
+								{
+									"key": "filter",
+									"value": "1hr"
+								},
+								{
+									"key": "client_id",
+									"value": "{{aerisID}}"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{aerisSecret}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "10f38ba5-9d50-431e-b144-1a2f376b0c9b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e82cf4bd-d7d5-45a0-bdd8-206b4ecadb0b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "7 - Running tests in Postman",
+			"description": "location.json\n\n[{\n      \"location\": \"Boston, MA\"\n    }, {\n      \"location\": \"Atlanta, GA\"\n    }, {\n      \"location\": \"Denver, CO\"\n    }, {\n      \"location\": \"San Diego, CA\"\n}]",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dd1fad99-2aba-4f5e-b57c-b6ac6db91013",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "41f8913a-b3fe-4653-948d-409fa08466d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "8 - Running tests in CI & Test Reporting",
+			"description": "",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dd1fad99-2aba-4f5e-b57c-b6ac6db91013",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "41f8913a-b3fe-4653-948d-409fa08466d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e40f1f39-5b04-4d3e-82f6-f9044f4676f5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4128584d-7354-4ff3-976b-773ae868ade5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
