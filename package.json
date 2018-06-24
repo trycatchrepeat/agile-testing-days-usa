@@ -1,0 +1,24 @@
+{
+  "name": "agiletdusa-2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run collection.json -e env.json -d location.json --folder \"6 - Fundamental - \\\"EndToEnd\\\" Tests (aka Integration Tests)\" -r teamcity,cli",
+    "start": "cd teamcity && docker-compose up"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trycatchrepeat/agiletdusa-2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trycatchrepeat/agiletdusa-2018/issues"
+  },
+  "homepage": "https://github.com/trycatchrepeat/agiletdusa-2018#readme",
+  "dependencies": {
+    "newman": "^3.9.4",
+    "newman-reporter-teamcity": "^0.1.10"
+  }
+}
