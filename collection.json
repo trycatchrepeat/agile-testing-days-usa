@@ -627,14 +627,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2594006d-9bac-4815-872b-796be24483f4",
+								"id": "26ad1734-1b93-4f9a-86e0-d5601679b7f3",
 								"type": "text/javascript",
 								"exec": [
 									"//extract time",
 									"var jsonData = pm.response.json();",
-									"pm.environment.set(\"forecast_time\", jsonData.currently.time);",
-									"pm.environment.set(\"darksky_forecast\", jsonData.currently.summary);",
-									"//check response - should we do this first?",
+									"pm.environment.set(\"forecast_time\", jsonData.hourly.data[0].time);",
+									"pm.environment.set(\"darksky_temp\", jsonData.hourly.data[0].temperature);",
 									"pm.test(\"Request with valid lat and long returns a 200 status code\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
@@ -647,7 +646,7 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=minutely,hourly,daily,flags,alerts",
+							"raw": "https://api.darksky.net/forecast/{{darkskyKey}}/{{latitude}},{{longitude}}?exclude=minutely,currently,daily,flags,alerts",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -662,7 +661,7 @@
 							"query": [
 								{
 									"key": "exclude",
-									"value": "minutely,hourly,daily,flags,alerts"
+									"value": "minutely,currently,daily,flags,alerts"
 								}
 							]
 						}
@@ -675,21 +674,21 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d4c0e62f-32ee-47ff-9195-5af91e308eed",
+								"id": "c4969035-22d2-425b-a7a6-378a6b781731",
 								"type": "text/javascript",
 								"exec": [
 									"var jsonData = pm.response.json();",
-									"pm.test(\"Darksky forecast for current time matches aeris forecast for same time\", function () {",
-									"    pm.expect(jsonData.response[0].periods[0].weather).to.eql(pm.environment.get(\"darksky_forecast\"));",
-									"});",
+									"// pm.test(\"Darksky temp for current time matches aeris temp for same time\", function () {",
+									"//     pm.expect(jsonData.response[0].periods[0].tempF).to.eql(Math.round(pm.environment.get(\"darksky_temp\")));",
+									"// });",
 									"pm.test(\"Darksky latitude for location matches aeris latitude\", function () {",
 									"    pm.expect(jsonData.response[0].loc.lat.toPrecision(2)).to.eql(pm.environment.get(\"latitude\").toPrecision(2));",
 									"});",
 									"pm.test(\"Darksky longitude for location matches aeris longitude\", function () {",
 									"    pm.expect(jsonData.response[0].loc.long.toPrecision(2)).to.eql(pm.environment.get(\"longitude\").toPrecision(2));",
 									"});",
-									"console.log(\"Darksky lat, long, forecast = \" + pm.environment.get(\"latitude\") + \",\" + pm.environment.get(\"longitude\")+ \",\" + pm.environment.get(\"darksky_forecast\"));",
-									"console.log(\"Aeris lat, long, forecast = \" + jsonData.response[0].loc.lat + \",\" + jsonData.response[0].loc.long + \",\" + jsonData.response[0].periods[0].weather);",
+									"console.log(\"Darksky time, lat, long, temp = \" + pm.environment.get(\"forecast_time\") + \",\" + pm.environment.get(\"latitude\") + \",\" + pm.environment.get(\"longitude\")+ \",\" + Math.round(pm.environment.get(\"darksky_temp\")));",
+									"console.log(\"Aeris time, lat, long, temp = \" + jsonData.response[0].periods[0].timestamp + \",\" + jsonData.response[0].loc.lat + \",\" + jsonData.response[0].loc.long + \",\" + jsonData.response[0].periods[0].tempF);",
 									""
 								]
 							}
@@ -732,6 +731,18 @@
 									"value": "{{aerisSecret}}"
 								}
 							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": ""
 						}
 					},
 					"response": []
