@@ -181,12 +181,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "45ee8afb-fa47-4236-bb4d-d15bc9f16f75",
+								"id": "7bcda5fd-d76e-4c2f-a3d9-4df0473532ed",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
+									""
 								]
 							}
 						}
@@ -234,10 +232,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ce300b1-8529-48b9-a1dc-4499555c2d94",
+								"id": "2ca5abb6-f8f5-47c0-8168-ab35a37c1dc3",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Forecast matches recorded weather\", function () {",
+									"pm.test(\"Forecast matches recorded weather\", function() {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.currently.summary).to.eql(\"Clear\");",
 									"});"
@@ -300,7 +298,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "51cc56a6-9c7c-40a1-9ef0-3b60a003bb4e",
+								"id": "6b9b095b-6026-4a1c-98e2-59c7655c92fb",
 								"type": "text/javascript",
 								"exec": [
 									"var data = JSON.parse(responseBody);",
@@ -313,39 +311,19 @@
 									"  \"properties\": {",
 									"    \"latitude\": {",
 									"      \"$id\": \"/properties/latitude\",",
-									"      \"type\": \"number\",",
-									"      \"title\": \"The Latitude Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        42.36029815673828",
-									"      ]",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"longitude\": {",
 									"      \"$id\": \"/properties/longitude\",",
-									"      \"type\": \"number\",",
-									"      \"title\": \"The Longitude Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        -71.05829620361328",
-									"      ]",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"timezone\": {",
 									"      \"$id\": \"/properties/timezone\",",
-									"      \"type\": \"string\",",
-									"      \"title\": \"The Timezone Schema \",",
-									"      \"default\": \"\",",
-									"      \"examples\": [",
-									"        \"America/New_York\"",
-									"      ]",
+									"      \"type\": \"string\"",
 									"    },",
 									"    \"offset\": {",
 									"      \"$id\": \"/properties/offset\",",
-									"      \"type\": \"integer\",",
-									"      \"title\": \"The Offset Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        -4",
-									"      ]",
+									"      \"type\": \"integer\"",
 									"    }",
 									"  },",
 									"  \"required\": [",
@@ -354,7 +332,8 @@
 									"    \"timezone\",",
 									"    \"offset\"",
 									"  ]",
-									"};",
+									"}",
+									"",
 									"pm.test(\"Response matches schema\", function () {",
 									"    pm.expect(tv4.validate(data, schema),tv4.error).to.be.true;",
 									"    console.log(\"Schema Validation failed: \", tv4.error);",
@@ -392,12 +371,12 @@
 					"response": []
 				},
 				{
-					"name": "Response json schema should match expected schema (change response)",
+					"name": "Response json schema should match expected schema (change query to exclude flags)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "1b16f5ab-732c-4805-928a-92a6eb0c362f",
+								"id": "fbb33ba0-c1ae-4a35-9a62-9749c7128f24",
 								"type": "text/javascript",
 								"exec": [
 									"var data = JSON.parse(responseBody);",
@@ -410,39 +389,19 @@
 									"  \"properties\": {",
 									"    \"latitude\": {",
 									"      \"$id\": \"/properties/latitude\",",
-									"      \"type\": \"number\",",
-									"      \"title\": \"The Latitude Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        42.36029815673828",
-									"      ]",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"longitude\": {",
 									"      \"$id\": \"/properties/longitude\",",
-									"      \"type\": \"number\",",
-									"      \"title\": \"The Longitude Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        -71.05829620361328",
-									"      ]",
+									"      \"type\": \"number\"",
 									"    },",
 									"    \"timezone\": {",
 									"      \"$id\": \"/properties/timezone\",",
-									"      \"type\": \"string\",",
-									"      \"title\": \"The Timezone Schema \",",
-									"      \"default\": \"\",",
-									"      \"examples\": [",
-									"        \"America/New_York\"",
-									"      ]",
+									"      \"type\": \"string\"",
 									"    },",
 									"    \"offset\": {",
 									"      \"$id\": \"/properties/offset\",",
-									"      \"type\": \"integer\",",
-									"      \"title\": \"The Offset Schema \",",
-									"      \"default\": 0,",
-									"      \"examples\": [",
-									"        -4",
-									"      ]",
+									"      \"type\": \"integer\"",
 									"    }",
 									"  },",
 									"  \"required\": [",
@@ -451,7 +410,8 @@
 									"    \"timezone\",",
 									"    \"offset\"",
 									"  ]",
-									"};",
+									"}",
+									"",
 									"pm.test(\"Response matches schema\", function () {",
 									"    pm.expect(tv4.validate(data, schema),tv4.error).to.be.true;",
 									"    console.log(\"Schema Validation failed: \", tv4.error);",
@@ -674,19 +634,22 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c4969035-22d2-425b-a7a6-378a6b781731",
+								"id": "cad93d58-6e4e-4f5f-b533-d9dda125355d",
 								"type": "text/javascript",
 								"exec": [
 									"var jsonData = pm.response.json();",
-									"// pm.test(\"Darksky temp for current time matches aeris temp for same time\", function () {",
-									"//     pm.expect(jsonData.response[0].periods[0].tempF).to.eql(Math.round(pm.environment.get(\"darksky_temp\")));",
-									"// });",
+									"",
 									"pm.test(\"Darksky latitude for location matches aeris latitude\", function () {",
 									"    pm.expect(jsonData.response[0].loc.lat.toPrecision(2)).to.eql(pm.environment.get(\"latitude\").toPrecision(2));",
 									"});",
+									"",
 									"pm.test(\"Darksky longitude for location matches aeris longitude\", function () {",
 									"    pm.expect(jsonData.response[0].loc.long.toPrecision(2)).to.eql(pm.environment.get(\"longitude\").toPrecision(2));",
 									"});",
+									"",
+									"// pm.test(\"Darksky temp for current time matches aeris temp for same time\", function () {",
+									"//     pm.expect(jsonData.response[0].periods[0].tempF).to.eql(Math.round(pm.environment.get(\"darksky_temp\")));",
+									"// });",
 									"console.log(\"Darksky time, lat, long, temp = \" + pm.environment.get(\"forecast_time\") + \",\" + pm.environment.get(\"latitude\") + \",\" + pm.environment.get(\"longitude\")+ \",\" + Math.round(pm.environment.get(\"darksky_temp\")));",
 									"console.log(\"Aeris time, lat, long, temp = \" + jsonData.response[0].periods[0].timestamp + \",\" + jsonData.response[0].loc.lat + \",\" + jsonData.response[0].loc.long + \",\" + jsonData.response[0].periods[0].tempF);",
 									""
@@ -731,18 +694,6 @@
 									"value": "{{aerisSecret}}"
 								}
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": ""
 						}
 					},
 					"response": []
